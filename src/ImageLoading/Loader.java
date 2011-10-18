@@ -18,13 +18,13 @@ public class Loader
 		return bI;
 	}
 	
-	public Image getTitlePicture(){
-		Image TitlePicture;
+	public ImageIcon getTitlePicture(){
+		ImageIcon TitlePicture = null;
 		try{
-			TitlePicture = new ImageIcon(getClass().getResource("Title.png")).getImage();			
+			TitlePicture = new ImageIcon(getClass().getResource("Title.png"));			
 		}
 		catch(Exception e){
-			TitlePicture = new ImageIcon("Title.png").getImage();			
+			TitlePicture = new ImageIcon("Title.png");			
 		}
 		return TitlePicture;
 	}
