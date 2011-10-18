@@ -10,17 +10,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
-import javax.swing.border.Border;
-import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import Game.ConsoleGame;
 import ImageLoading.Loader;
 
 public class MainMenu extends JFrame
@@ -40,7 +38,9 @@ public class MainMenu extends JFrame
 	ImageIcon imageTitle = new Loader().getTitlePicture();
 	/*Crap with gui*/
 	GridBagConstraints c = new GridBagConstraints();
-	TitledBorder title = BorderFactory.createTitledBorder("CHOOSE");
+	TitledBorder borderButtons = BorderFactory.createTitledBorder("CHOOSE");
+	TitledBorder borderMain = BorderFactory.createTitledBorder("Main Menu");
+	OptionPanel panelOptions = new OptionPanel();
 	
 	
 	public MainMenu(){
@@ -56,10 +56,24 @@ public class MainMenu extends JFrame
 		buttonStart.addActionListener(new ActionListener(){
 			
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println(buttonStart.getText());
+				remove(panelMain);
+				repaint();
+				new ConsoleGame();
 			}
 			
 		});
+		
+		buttonOptions = new JButton("Options");
+		buttonOptions.setPreferredSize(new Dimension(75,30));
+		buttonOptions.addActionListener(new ActionListener(){
+			
+			public void actionPerformed(ActionEvent arg0) {
+				panelMain.setVisible(false);
+				add(panelOptions);
+			}
+			
+		});
+		
 		buttonExit = new JButton("Exit");
 		buttonExit.setPreferredSize(new Dimension(75,30));
 		buttonExit.addActionListener(new ActionListener(){
@@ -69,35 +83,29 @@ public class MainMenu extends JFrame
 			}
 			
 		});
-		buttonOptions = new JButton("Options");
-		buttonOptions.setPreferredSize(new Dimension(75,30));
-		buttonOptions.addActionListener(new ActionListener(){
-			
-			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("There are none");
-			}
-			
-		});
-		
 		titleLabel = new JLabel(imageTitle);
 		titleLabel.setPreferredSize(new Dimension(imageTitle.getIconHeight(),imageTitle.getIconWidth()));
-		title.setTitleColor(Color.WHITE);
+		borderButtons.setTitleColor(Color.WHITE);
+		addToOptions();
 	}
 
 	private void addComponents() {
 		panelButtons = new JPanel();
 		panelButtons.setBackground(Color.DARK_GRAY);
 		panelButtons.setLayout(new GridBagLayout());
-		panelButtons.setBorder(title);
+		panelButtons.setBorder(borderButtons);
 		panelButtons.setPreferredSize(new Dimension(120,200)); 
+		
 		c.gridy = 0;
 		c.weightx = 1.5;
 		panelButtons.add(buttonStart,c);
+		
 		c.gridy = 1;
 		c.weightx = 1.5;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.insets = new Insets(10,0,0,0);
 		panelButtons.add(buttonOptions,c);
+		
 		c.gridy = 2;
 		c.weightx = 1.5;
 		c.insets = new Insets(10,0,0,0);
@@ -120,6 +128,8 @@ public class MainMenu extends JFrame
 		panelMain.add(panelButtons,c);
 		
 		panelMain.setBackground(Color.DARK_GRAY);
+		borderMain.setTitleColor(Color.WHITE);
+		panelMain.setBorder(borderMain);
 		add(panelMain);
 		
 	}
@@ -134,6 +144,17 @@ public class MainMenu extends JFrame
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		setUndecorated(true);
 		setVisible(true);
+	}
+	
+	private void addToOptions(){
+		panelOptions.buttonBack.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e) {
+				remove(panelOptions);
+				panelMain.setVisible(true);
+			}
+		});
 	}
 }
