@@ -34,7 +34,8 @@ public class MainMenu extends JFrame
 		textName.addActionListener(new ActionListener(){
 			
 			public void actionPerformed(ActionEvent arg0) {
-				
+				System.out.println(textName.getText());
+				textName.setText("");
 			}
 			
 		});
