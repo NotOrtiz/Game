@@ -15,7 +15,7 @@ public class OptionPanel extends JPanel{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 19872344545L;
 	TitledBorder title = BorderFactory.createTitledBorder("OPTIONS");
 	GridBagConstraints c = new GridBagConstraints();
 	public JButton buttonBack;

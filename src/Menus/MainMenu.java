@@ -28,7 +28,7 @@ public class MainMenu extends JPanel
 
 	
 	JPanel panelButtons;
-	JButton buttonStart;
+	public JButton buttonStart;
 	public JButton buttonOptions;
 	JButton buttonExit;
 	JLabel titleLabel;
@@ -59,15 +59,10 @@ public class MainMenu extends JPanel
 	private void initComponents() {
 		buttonStart = new JButton("Start");
 		buttonStart.setPreferredSize(new Dimension(75,30));
-		buttonStart.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent arg0) {
-				
-				repaint();
-			}
-			
-		});
+		
 		buttonOptions = new JButton("Options");
 		buttonOptions.setPreferredSize(new Dimension(75,30));
+		
 		buttonExit = new JButton("Exit");
 		buttonExit.setPreferredSize(new Dimension(75,30));
 		buttonExit.addActionListener(new ActionListener(){

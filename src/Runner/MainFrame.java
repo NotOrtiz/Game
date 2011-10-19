@@ -1,13 +1,12 @@
 package Runner;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
+import Game.LoadPanel;
 import Menus.MainMenu;
 import Menus.OptionPanel;
 
@@ -19,14 +18,7 @@ public class MainFrame extends JFrame{
 	private static final long serialVersionUID = -8583528350760984445L;
 	MainMenu m = new MainMenu();
 	OptionPanel panelOptions = new OptionPanel();
-	// Get the size of the screen
-	Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-	 
-	// Determine the new location of the window
-	int w = getSize().width;
-	int h = getSize().height;
-	int x = (dim.width-w)/2;
-	int y = (dim.height-h)/2;
+	LoadPanel panelLoad = new LoadPanel();
 	
 	public MainFrame(){
 		super();
@@ -56,11 +48,43 @@ public class MainFrame extends JFrame{
 			}
 			
 		});
+		m.buttonStart.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				m.setVisible(false);
+				add(panelLoad);
+				repaint();
+			}
+			
+		});
+		panelLoad.buttonContinue.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				panelLoad.setVisible(false);
+				
+				repaint();
+			}
+			
+		});
+		panelLoad.buttonLoad.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				panelLoad.setVisible(false);
+				repaint();
+			}
+			
+		});
+		panelLoad.buttonBack.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				remove(panelLoad);
+				m.setVisible(true);
+				repaint();
+			}
+			
+		});
 	}
 
 	private void createAndShowGui() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
 		setSize(400,400);
 		try {
 	        UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
