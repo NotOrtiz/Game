@@ -14,24 +14,22 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JFrame;
-import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
-import Game.ConsoleGame;
 import ImageLoading.Loader;
 
-public class MainMenu extends JFrame
+public class MainMenu extends JPanel
 {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 8674266367360936532L;
+	// Get the size of the screen
+
 	
-	JPanel panelMain = new JPanel();
 	JPanel panelButtons;
 	JButton buttonStart;
-	JButton buttonOptions;
+	public JButton buttonOptions;
 	JButton buttonExit;
 	JLabel titleLabel;
 	
@@ -40,40 +38,36 @@ public class MainMenu extends JFrame
 	GridBagConstraints c = new GridBagConstraints();
 	TitledBorder borderButtons = BorderFactory.createTitledBorder("CHOOSE");
 	TitledBorder borderMain = BorderFactory.createTitledBorder("Main Menu");
-	OptionPanel panelOptions = new OptionPanel();
 	
 	
 	public MainMenu(){
-		super("Main Menu");
+		super();
+		createPanel();
 		initComponents();
 		addComponents();
-		createAndShowGui();
+	}
+
+	private void createPanel() {
+		setPreferredSize(new Dimension(400,400)); 
+		setLayout(new GridBagLayout());
+		setBackground(Color.DARK_GRAY);
+		borderMain.setTitleColor(Color.WHITE);
+		setBorder(borderMain);
+		
 	}
 
 	private void initComponents() {
 		buttonStart = new JButton("Start");
 		buttonStart.setPreferredSize(new Dimension(75,30));
 		buttonStart.addActionListener(new ActionListener(){
-			
 			public void actionPerformed(ActionEvent arg0) {
-				remove(panelMain);
+				
 				repaint();
-				new ConsoleGame();
 			}
 			
 		});
-		
 		buttonOptions = new JButton("Options");
 		buttonOptions.setPreferredSize(new Dimension(75,30));
-		buttonOptions.addActionListener(new ActionListener(){
-			
-			public void actionPerformed(ActionEvent arg0) {
-				panelMain.setVisible(false);
-				add(panelOptions);
-			}
-			
-		});
-		
 		buttonExit = new JButton("Exit");
 		buttonExit.setPreferredSize(new Dimension(75,30));
 		buttonExit.addActionListener(new ActionListener(){
@@ -86,7 +80,6 @@ public class MainMenu extends JFrame
 		titleLabel = new JLabel(imageTitle);
 		titleLabel.setPreferredSize(new Dimension(imageTitle.getIconHeight(),imageTitle.getIconWidth()));
 		borderButtons.setTitleColor(Color.WHITE);
-		addToOptions();
 	}
 
 	private void addComponents() {
@@ -111,7 +104,6 @@ public class MainMenu extends JFrame
 		c.insets = new Insets(10,0,0,0);
 		panelButtons.add(buttonExit,c);
 		
-		panelMain.setLayout(new GridBagLayout());
 		
 		
 		c.anchor = GridBagConstraints.PAGE_START;
@@ -119,42 +111,14 @@ public class MainMenu extends JFrame
 		c.gridwidth = 2;
 		c.gridx = 0;
 		c.gridy = 1;
-		panelMain.add(titleLabel,c);
+		add(titleLabel,c);
 		
 		c.gridy = 2;
 		c.anchor = GridBagConstraints.PAGE_END;
 		c.insets = new Insets(20,0,0,0);
 		c.fill = GridBagConstraints.VERTICAL;
-		panelMain.add(panelButtons,c);
-		
-		panelMain.setBackground(Color.DARK_GRAY);
-		borderMain.setTitleColor(Color.WHITE);
-		panelMain.setBorder(borderMain);
-		add(panelMain);
-		
-	}
+		add(panelButtons,c);
 
-	private void createAndShowGui() {
-		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLocationRelativeTo(null);
-		setSize(400,400);
-		try {
-	        UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		setUndecorated(true);
-		setVisible(true);
-	}
-	
-	private void addToOptions(){
-		panelOptions.buttonBack.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e) {
-				remove(panelOptions);
-				panelMain.setVisible(true);
-			}
-		});
+		
 	}
 }
