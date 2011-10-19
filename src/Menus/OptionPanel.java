@@ -31,7 +31,10 @@ public class OptionPanel extends JPanel{
 	private void addOptionsThings() {
 		buttonBack = new JButton("Back");
 		buttonBack.setPreferredSize(new Dimension(75,30));
-		add(buttonBack);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx = 1.5;
+		c.gridx = 1;
+		add(buttonBack,c);
 	}
 
 

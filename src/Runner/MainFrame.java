@@ -6,7 +6,10 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
+import Game.CharCreation;
 import Game.LoadPanel;
+import Game.BoxGame.Player;
+import Game.BoxGame.GameRunner;
 import Menus.MainMenu;
 import Menus.OptionPanel;
 
@@ -19,12 +22,13 @@ public class MainFrame extends JFrame{
 	MainMenu m = new MainMenu();
 	OptionPanel panelOptions = new OptionPanel();
 	LoadPanel panelLoad = new LoadPanel();
+	GameRunner panelGameRunner = new GameRunner();
+	CharCreation panelCharCreation = new CharCreation();
 	
 	public MainFrame(){
 		super();
 		createAndShowGui();
 		add(m);
-		setUndecorated(true);
 		setVisible(true);
 		buttonListeners();
 	}
@@ -59,14 +63,15 @@ public class MainFrame extends JFrame{
 		panelLoad.buttonContinue.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				panelLoad.setVisible(false);
-				
+				add(panelGameRunner);
 				repaint();
 			}
 			
 		});
-		panelLoad.buttonLoad.addActionListener(new ActionListener(){
+		panelLoad.buttonNew.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				panelLoad.setVisible(false);
+				add(panelCharCreation);
 				repaint();
 			}
 			
@@ -75,6 +80,23 @@ public class MainFrame extends JFrame{
 			public void actionPerformed(ActionEvent arg0) {
 				remove(panelLoad);
 				m.setVisible(true);
+				repaint();
+			}
+			
+		});
+		panelCharCreation.buttonStart.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				panelCharCreation.setVisible(false);
+				if(panelCharCreation.fieldName.getText().equals("")){
+					
+				}
+				else{
+					Player p = new Player(panelCharCreation.fieldName.getText(),25,25);
+					panelCharCreation.setVisible(false);
+					panelGameRunner.player = p;
+					add(panelGameRunner);
+				}
+				add(panelGameRunner);
 				repaint();
 			}
 			

@@ -20,7 +20,7 @@ public class LoadPanel extends JPanel {
 	TitledBorder title = BorderFactory.createTitledBorder("Game Menu");
 	GridBagConstraints c = new GridBagConstraints();
 	public JButton buttonContinue;
-	public JButton buttonLoad;
+	public JButton buttonNew;
 	public JButton buttonBack;
 	
 	public LoadPanel(){
@@ -36,10 +36,10 @@ public class LoadPanel extends JPanel {
 		buttonContinue.setPreferredSize(new Dimension(75,30));
 		add(buttonContinue,c);
 		
-		buttonLoad = new JButton("Load");
-		buttonLoad.setPreferredSize(new Dimension(75,30));
+		buttonNew = new JButton("New");
+		buttonNew.setPreferredSize(new Dimension(75,30));
 		c.gridy = 1;
-		add(buttonLoad,c);
+		add(buttonNew,c);
 		
 		c.insets = new Insets(10,0,0,0);
 		

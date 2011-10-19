@@ -82,36 +82,33 @@ public class MainMenu extends JPanel
 		panelButtons.setBackground(Color.DARK_GRAY);
 		panelButtons.setLayout(new GridBagLayout());
 		panelButtons.setBorder(borderButtons);
-		panelButtons.setPreferredSize(new Dimension(120,200)); 
+		panelButtons.setPreferredSize(new Dimension(250,100)); 
 		
+		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridy = 0;
 		c.weightx = 1.5;
 		panelButtons.add(buttonStart,c);
 		
 		c.gridy = 1;
 		c.weightx = 1.5;
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.insets = new Insets(10,0,0,0);
+		c.insets = new Insets(12,0,0,0);
 		panelButtons.add(buttonOptions,c);
 		
 		c.gridy = 2;
 		c.weightx = 1.5;
-		c.insets = new Insets(10,0,0,0);
+		c.insets = new Insets(12,0,0,0);
 		panelButtons.add(buttonExit,c);
 		
-		
-		
-		c.anchor = GridBagConstraints.PAGE_START;
 		c.ipady = 40;
 		c.gridwidth = 2;
-		c.gridx = 0;
+		c.gridx = 1;
 		c.gridy = 1;
+		c.weighty = 1.2;
 		add(titleLabel,c);
 		
+		c.weighty = 0;
 		c.gridy = 2;
-		c.anchor = GridBagConstraints.PAGE_END;
-		c.insets = new Insets(20,0,0,0);
-		c.fill = GridBagConstraints.VERTICAL;
+		c.insets = new Insets(0,0,0,0);
 		add(panelButtons,c);
 
 		
