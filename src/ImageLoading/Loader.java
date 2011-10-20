@@ -40,4 +40,15 @@ public class Loader
 		}
 		return PlayerPicture;
 	}
+	
+	public Image getPlayerPicture(String src){
+		Image PlayerPicture = null;
+		try{
+			PlayerPicture = new ImageIcon(getClass().getResource(src)).getImage();			
+		}
+		catch(Exception e){
+			PlayerPicture = new ImageIcon(src).getImage();			
+		}
+		return PlayerPicture;
+	}
 }

@@ -22,7 +22,7 @@ public class MainFrame extends JFrame{
 	MainMenu m = new MainMenu();
 	OptionPanel panelOptions = new OptionPanel();
 	LoadPanel panelLoad = new LoadPanel();
-	GameRunner panelGameRunner = new GameRunner();
+	GameRunner panelGameRunner;
 	CharCreation panelCharCreation = new CharCreation();
 	
 	public MainFrame(){
@@ -63,6 +63,7 @@ public class MainFrame extends JFrame{
 		panelLoad.buttonContinue.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				panelLoad.setVisible(false);
+				panelGameRunner = new GameRunner();
 				add(panelGameRunner);
 				repaint();
 			}
@@ -86,18 +87,19 @@ public class MainFrame extends JFrame{
 		});
 		panelCharCreation.buttonStart.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-				panelCharCreation.setVisible(false);
+				
 				if(panelCharCreation.fieldName.getText().equals("")){
 					
 				}
 				else{
-					Player p = new Player(panelCharCreation.fieldName.getText(),25,25);
 					panelCharCreation.setVisible(false);
-					panelGameRunner.player = p;
+					Player p = new Player(panelCharCreation.fieldName.getText(),25,25);
+					GameRunner.player = p;
+					panelGameRunner = new GameRunner();
 					add(panelGameRunner);
+					repaint();
 				}
-				add(panelGameRunner);
-				repaint();
+
 			}
 			
 		});
@@ -114,5 +116,6 @@ public class MainFrame extends JFrame{
 			e.printStackTrace();
 		}
 	}
+
 
 }

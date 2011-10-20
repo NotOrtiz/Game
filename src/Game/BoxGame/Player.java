@@ -27,4 +27,8 @@ public class Player
 		g.setColor(Color.BLACK);
 		g.drawString(name,25,20);
 	}
+	
+	public void setImage(Image i){
+		playerPic = i;
+	}
 }
