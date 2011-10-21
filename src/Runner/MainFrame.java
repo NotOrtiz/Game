@@ -2,12 +2,16 @@ package Runner;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
+import util.Clock;
+
 import Game.CharCreation;
 import Game.LoadPanel;
+import Game.BoxGame.Load;
 import Game.BoxGame.Player;
 import Game.BoxGame.GameRunner;
 import Menus.MainMenu;
@@ -24,6 +28,7 @@ public class MainFrame extends JFrame{
 	LoadPanel panelLoad = new LoadPanel();
 	GameRunner panelGameRunner;
 	CharCreation panelCharCreation = new CharCreation();
+	Clock c = new Clock();
 	
 	public MainFrame(){
 		super();
@@ -63,7 +68,8 @@ public class MainFrame extends JFrame{
 		panelLoad.buttonContinue.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				panelLoad.setVisible(false);
-				panelGameRunner = new GameRunner();
+				ArrayList<String> save = new Load().loadGame();
+				panelGameRunner = new GameRunner(c,save);
 				add(panelGameRunner);
 				repaint();
 			}
@@ -95,9 +101,9 @@ public class MainFrame extends JFrame{
 					panelCharCreation.setVisible(false);
 					Player p = new Player(panelCharCreation.fieldName.getText(),25,25);
 					GameRunner.player = p;
-					panelGameRunner = new GameRunner();
+					panelGameRunner = new GameRunner(c);
 					add(panelGameRunner);
-					repaint();
+
 				}
 
 			}

@@ -22,12 +22,12 @@ public class Bullet {
 	
 	protected void paintComponent(Graphics g){
 		g.setColor(Color.RED);
-		g.fillOval((int)x, (int)y, 3, 3);
+		g.fillOval((int)x, (int)y, 5, 5);
 	}
 	
 	public void update(double d){
-	    this.x += this.sh*(d);
-	    this.y += this.sv*(d);
+	    this.x += this.sh*(d*75);
+	    this.y += this.sv*(d*75);
 
 	}
 	

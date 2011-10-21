@@ -16,6 +16,10 @@ public class IGun {
 		GameRunner.player.setImage(i);
 	}
 	
+	public String toString(){
+		return "I";
+	}
+	
 	public int damagePerShot;
 	public int shotsPerSecond;
 	

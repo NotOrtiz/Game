@@ -3,6 +3,7 @@ package Game.BoxGame;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
+import java.util.ArrayList;
 
 
 class Save
@@ -12,7 +13,7 @@ class Save
 
 	}
 	
-	void newSave(String name,String time)
+	void newSave(Player p,ArrayList<Enemy> e,ArrayList<Bullet> b)
 	{
 		File file = new File("C:/save.dat");
 		String newLine = System.getProperty("line.separator"); 
@@ -20,9 +21,13 @@ class Save
 		{
 			FileWriter fstream = new FileWriter(file,true);
 	  		BufferedWriter out = new BufferedWriter(fstream);
-	  		out.write(name+":"+time+newLine);
+	  		out.write(p.name+":"+p.x+":"+p.y+":"+p.gunName+":"+e.size());
+	  		for(Enemy en:e){
+	  			out.write(en.x+":"+en.y+":"+en.direction);
+	  		}
+	  		out.write(newLine);
 	  		out.close();
 		}
-		catch(Exception e){}
+		catch(Exception err){}
 	}
 }

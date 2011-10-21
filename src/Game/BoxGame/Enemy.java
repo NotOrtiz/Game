@@ -6,9 +6,9 @@ import java.util.*;
 class Enemy
 {
 	Random r = new Random();
-	int x = r.nextInt(250)+100;
-	int y = r.nextInt(250)+100;
-	int direction = r.nextInt(8);
+	public int x = r.nextInt(250)+100;
+	public int y = r.nextInt(250)+100;
+	public int direction = r.nextInt(8);
 	int times = 0;
 	int speed = 1;
 	int t = 0;
