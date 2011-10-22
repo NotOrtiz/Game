@@ -10,12 +10,14 @@ public class Bullet {
 	double sh;
 	int damage;
 	boolean rocket;
+	double angle;
 	
 	public Bullet(int x,int y,double angle,boolean isRocket){
 		rocket = isRocket;
 		damage = isRocket ? 50 : 3;
 		this.x = x;
 		this.y = y;
+		this.angle = angle;
 	    sv = Math.sin(angle)*2;
 	    sh = Math.cos(angle)*2;
 	}
@@ -37,6 +39,10 @@ public class Bullet {
 	    if(y > 400)
 	    	return false;
 	    return true;
+	}
+	
+	public String toString(){
+		return x+" : "+y+" : "+angle;
 	}
 	
 }

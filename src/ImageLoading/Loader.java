@@ -63,21 +63,26 @@ public class Loader
 		try {
 			bigImg = ImageIO.read(new File("images/Combined.png"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		final int width = 50;
-		final int height = 50;
-		final int rows = 10;
-		final int cols = 80;
+		int height = 50;
+		final int cols = 10;
+		final int rows = 78;
 		ArrayList<Image> sprites = new ArrayList<Image>();
 
-		for (int i = 0; i < rows; i++)
+		for (int i = 0; i < cols; i++)
 		{
-		    for (int j = 0; j < cols; j++)
+		    for (int j = 0; j < rows; j++)
 		    {
-		        sprites.add(bigImg.getSubimage(i * width,j * height, width,height));
+		        sprites.add(bigImg.getSubimage(i * width, j * height, width, height));
+		        if(j%10 == 0){
+		        	height = 35;
+		        }
+
+		        else 
+		        	height = 50;
 		    }
 		}
 		

@@ -13,10 +13,14 @@ public class Player
 	float x;
 	float y;
 	String gunName = "1";
-	boolean jump = false;
-	boolean crouch = false;
-	boolean right = false;
-	boolean left = false;
+	public boolean jump = false;
+	public boolean crouch = false;
+	public boolean right = false;
+	public boolean left = false;
+	boolean jumpUp = false;
+	boolean fallDown = false;
+	
+	int startY;
 	
 	public Player(String name, float x, float y)
 	{
@@ -30,18 +34,34 @@ public class Player
 	protected void paintComponent(Graphics g){
 		g.drawImage(playerPic, (int)x, (int)y, null);
 		g.setColor(Color.BLACK);
-		g.drawString(name,25,20);
+		g.drawString("SSZS 0.00001 Alpha",0,10);
 	}
 	
 	void update(double d){
+		if(jumpUp && y > startY-80){
+			y-=250*d;
+		}
+		else if(y <= startY && !fallDown){
+			
+			fallDown = true;
+			jumpUp = false;
+		}
+		else if(y < 328 & fallDown){
+			y+=250*d;
+		}
+		else if(y > 328){
+			fallDown = false;
+		}
+
+		if(jump && (!jumpUp&&!fallDown)){
+			jumpUp = true;
+			jump = false;
+			startY = (int) y;
+		}	
 		if(right)
 			x+=100*d;
 		if(left)
 			x-=100*d;
-		if(jump)
-			y-=100*d;
-		if(crouch)
-			y+=100*d;
 	}
 	
 	public void setImage(Image i){

@@ -90,7 +90,7 @@ class HighScores
 		}
 		y = 45;
 		tThrough = 1;
-		for(Player p:Players)
+		/*for(Player p:Players)
 		{
 			if(y<350)
 			{
@@ -102,7 +102,7 @@ class HighScores
 
 			}
 			y+=15;
-		}
+		}*/
 		y = 45;
 		tThrough = 1;
 		
