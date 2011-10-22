@@ -14,9 +14,9 @@ import util.Clock;
 
 import Game.CharCreation;
 import Game.LoadPanel;
-import Game.BoxGame.Load;
-import Game.BoxGame.Player;
-import Game.BoxGame.GameRunner;
+import Game.SideScrollingZombieShooter.Load;
+import Game.SideScrollingZombieShooter.Player;
+import Game.SideScrollingZombieShooter.GameRunner;
 import Menus.MainMenu;
 import Menus.OptionPanel;
 
