@@ -1,4 +1,4 @@
-package Game.BoxGame;
+package Game.SideScrollingZombieShooter;
 
 import java.io.File;
 import java.io.FileWriter;

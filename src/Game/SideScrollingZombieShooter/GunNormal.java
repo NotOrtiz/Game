@@ -1,4 +1,4 @@
-package Game.BoxGame;
+package Game.SideScrollingZombieShooter;
 
 public class GunNormal extends IGun{
 
