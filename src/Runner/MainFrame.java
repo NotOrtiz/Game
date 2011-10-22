@@ -1,7 +1,10 @@
 package Runner;
 
+import java.awt.KeyEventDispatcher;
+import java.awt.KeyboardFocusManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -17,7 +20,7 @@ import Game.BoxGame.GameRunner;
 import Menus.MainMenu;
 import Menus.OptionPanel;
 
-public class MainFrame extends JFrame{
+public class MainFrame extends JFrame implements KeyEventDispatcher{
 	
 	/**
 	 * 
@@ -29,11 +32,14 @@ public class MainFrame extends JFrame{
 	GameRunner panelGameRunner;
 	CharCreation panelCharCreation = new CharCreation();
 	Clock c = new Clock();
+	boolean playing = false;
 	
 	public MainFrame(){
 		super();
 		createAndShowGui();
 		add(m);
+	    KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+	    manager.addKeyEventDispatcher(this);
 		setVisible(true);
 		buttonListeners();
 	}
@@ -70,6 +76,7 @@ public class MainFrame extends JFrame{
 				panelLoad.setVisible(false);
 				ArrayList<String> save = new Load().loadGame();
 				panelGameRunner = new GameRunner(c,save);
+				playing = true;
 				add(panelGameRunner);
 				repaint();
 			}
@@ -102,6 +109,7 @@ public class MainFrame extends JFrame{
 					Player p = new Player(panelCharCreation.fieldName.getText(),25,25);
 					GameRunner.player = p;
 					panelGameRunner = new GameRunner(c);
+					playing = true;
 					add(panelGameRunner);
 
 				}
@@ -122,6 +130,21 @@ public class MainFrame extends JFrame{
 			e.printStackTrace();
 		}
 	}
+	
+    public boolean dispatchKeyEvent(KeyEvent e) {
+    	if(playing){
+            if (e.getID() == KeyEvent.KEY_PRESSED) {
+            	panelGameRunner.handlePress(e.getKeyCode());
+            }
+            if (e.getID() == KeyEvent.KEY_RELEASED) {
+            	panelGameRunner.handleRelease(e.getKeyCode());
+
+            }		
+    	}
+
+        return false;
+    }
 
 
 }
+

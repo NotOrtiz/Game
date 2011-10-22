@@ -33,16 +33,15 @@ public class Player
 		g.drawString(name,25,20);
 	}
 	
-	void update(){
-		System.out.println("Updated");
+	void update(double d){
 		if(right)
-			x++;
+			x+=100*d;
 		if(left)
-			x--;
+			x-=100*d;
 		if(jump)
-			y++;
+			y-=100*d;
 		if(crouch)
-			y--;
+			y+=100*d;
 	}
 	
 	public void setImage(Image i){

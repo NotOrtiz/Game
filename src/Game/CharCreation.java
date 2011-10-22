@@ -22,6 +22,7 @@ public class CharCreation extends JPanel{
 	public JButton buttonStart;
 	public JTextField fieldName;
 
+
 	public CharCreation(){
 		super();
 		create();
@@ -29,6 +30,7 @@ public class CharCreation extends JPanel{
 	}
 
 	private void addOptions() {
+
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 1.5;
 		c.gridx = 1;

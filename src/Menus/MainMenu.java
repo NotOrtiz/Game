@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 
 import java.awt.event.ActionEvent;
@@ -33,7 +34,8 @@ public class MainMenu extends JPanel
 	JButton buttonExit;
 	JLabel titleLabel;
 	
-	ImageIcon imageTitle = new Loader().getTitlePicture();
+	Image i = new Loader().getSprites("").get(23);
+	ImageIcon imageTitle = new ImageIcon(i);
 	/*Crap with gui*/
 	GridBagConstraints c = new GridBagConstraints();
 	TitledBorder borderButtons = BorderFactory.createTitledBorder("CHOOSE");
@@ -72,6 +74,7 @@ public class MainMenu extends JPanel
 			}
 			
 		});
+		
 		titleLabel = new JLabel(imageTitle);
 		titleLabel.setPreferredSize(new Dimension(imageTitle.getIconHeight(),imageTitle.getIconWidth()));
 		borderButtons.setTitleColor(Color.WHITE);

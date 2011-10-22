@@ -8,7 +8,7 @@ public class IGun {
 	Loader imageLoader = new Loader();
 	
 	public IGun(){
-		setPlayerImage("test1.png");
+		setPlayerImage("charDefault.png");
 	}
 	
 	public void setPlayerImage(String src){
@@ -19,6 +19,9 @@ public class IGun {
 	public String toString(){
 		return "I";
 	}
+	
+	public int paintX = 35;
+	public int paintY = 18;
 	
 	public int damagePerShot;
 	public int shotsPerSecond;
