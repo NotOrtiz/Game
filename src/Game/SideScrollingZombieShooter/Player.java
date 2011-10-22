@@ -41,7 +41,7 @@ public class Player
 		if(jumpUp && y > startY-80){
 			y-=250*d;
 		}
-		else if(y <= startY && !fallDown){
+		else if(y < startY && !fallDown){
 			
 			fallDown = true;
 			jumpUp = false;
@@ -58,9 +58,9 @@ public class Player
 			jump = false;
 			startY = (int) y;
 		}	
-		if(right)
+		if(right && x<360)
 			x+=100*d;
-		if(left)
+		if(left && x >-10)
 			x-=100*d;
 	}
 	

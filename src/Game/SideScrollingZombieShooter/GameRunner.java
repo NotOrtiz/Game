@@ -157,7 +157,7 @@ public class GameRunner extends JPanel {
 	public void addGun(int i){
 		switch(i){
 			case 1:
-				new IGun();
+				new GunGod();
 				break;
 			case 2:
 				new GunMachine();
@@ -165,11 +165,8 @@ public class GameRunner extends JPanel {
 			case 3:
 				new GunRocket();
 				break;
-			case 4:
-				new GunGod();
-				break;
 			default:
-				new IGun();
+				new GunGod();
 				break;
 		}
 	}
@@ -177,7 +174,6 @@ public class GameRunner extends JPanel {
 	public void paintComponent(Graphics g){
 			g.setColor(Color.GREEN);
 			g.fillRect(0, 0, 400,400);
-			g.setColor(Color.BLACK);
 			player.update(gameClock.getFrameTime());
 			player.paintComponent(g);
 			for(int temp = 0; temp < bulletList.size(); temp++){

@@ -1,6 +1,6 @@
 package Game.SideScrollingZombieShooter;
 
-public class GunMachine extends IGun{
+public class GunMachine{
 
 
 }
