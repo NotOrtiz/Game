@@ -18,7 +18,8 @@ public class Load
 	public ArrayList<String> loadGame()
 	{
 		ArrayList<String> returnArray = new ArrayList<String>();
-		File file = new File("C:/save.dat");
+		String home = System.getProperty("user.home");
+		File file = new File(home+"/save.dat");
 		try
 		{
 			FileInputStream fstream = new FileInputStream(file);

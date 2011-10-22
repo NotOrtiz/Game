@@ -2,7 +2,6 @@ package ImageLoading;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -10,58 +9,36 @@ import javax.swing.ImageIcon;
 
 import java.util.ArrayList;
 public class Loader 
-{
-	int numOfPics = 1;
-	public ArrayList<ImageIcon> getImages(){
-		ArrayList<ImageIcon> listImages = new ArrayList<ImageIcon>();
-		try{
-			listImages.add(new ImageIcon(getClass().getResource("Title.png")));			
-		}
-		catch(Exception e)
-		{
-			listImages.add(new ImageIcon("Title.png"));			
-		}
-		return listImages;
-	}
-	
+{	
 	public ImageIcon getTitlePicture(){
 		ImageIcon TitlePicture = null;
 		try{
-			TitlePicture = new ImageIcon(getClass().getResource("images/Title.png"));			
+			Image temp = ImageIO.read(getClass().getResource("/images/Title.png"));
+			TitlePicture = new ImageIcon(temp);
 		}
 		catch(Exception e){
-			TitlePicture = new ImageIcon("images/Title.png");			
+			TitlePicture = new ImageIcon("images/Title.png");	
 		}
 		return TitlePicture;
 	}
 	
-	public Image getPlayerPicture(){
-		Image PlayerPicture = null;
+	public Image getPicture(String src){
+		Image Picture = null;
 		try{
-			PlayerPicture = new ImageIcon(getClass().getResource("images/temp.png")).getImage();			
+			src = "/"+src;
+			Picture = ImageIO.read(getClass().getResource(src));
 		}
 		catch(Exception e){
-			PlayerPicture = new ImageIcon("images/temp.png").getImage();			
+			src = src.substring(1, src.length());
+			Picture = new ImageIcon(src).getImage();	
 		}
-		return PlayerPicture;
-	}
-	
-	public Image getPlayerPicture(String src){
-		Image PlayerPicture = null;
-		src = "images/"+src;
-		try{
-			PlayerPicture = new ImageIcon(getClass().getResource(src)).getImage();			
-		}
-		catch(Exception e){
-			PlayerPicture = new ImageIcon(src).getImage();			
-		}
-		return PlayerPicture;
+		return Picture;
 	}
 	
 	public ArrayList<Image> getSprites(String src){
 		BufferedImage bigImg = null;
 		try {
-			bigImg = ImageIO.read(new File("images/Combined.png"));
+			bigImg = ImageIO.read(getClass().getResource("/images/Combined.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -85,8 +62,8 @@ public class Loader
 		        	height = 50;
 		    }
 		}
-		
 		return sprites;
-		
 	}
+	
+	
 }

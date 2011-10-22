@@ -3,6 +3,7 @@ package Game.SideScrollingZombieShooter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -15,7 +16,16 @@ class Save
 	
 	void newSave(Player p,ArrayList<Enemy> e,ArrayList<Bullet> b)
 	{
-		File file = new File("C:/save.dat");
+		String s = System.getProperty("user.home");
+		File file = new File(s+"/save.dat");
+		if(!file.exists()){
+			try {
+				file.createNewFile();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
 		String newLine = System.getProperty("line.separator"); 
 		try
 		{

@@ -1,7 +1,7 @@
 package Game.SideScrollingZombieShooter;
 
-import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 
 import javax.swing.JPanel;
+
+import ImageLoading.Loader;
 
 import util.Clock;
 
@@ -21,6 +23,7 @@ public class GameRunner extends JPanel {
 
 	private static final long serialVersionUID = -8305054946885253155L;
 	public static Player player = new Player("ERROR",0,0);
+	Image Background;
 	Clock gameClock;
 	ArrayList<Bullet> bulletList = new ArrayList<Bullet>();
 	ArrayList<Enemy> e = new ArrayList<Enemy>();
@@ -35,16 +38,16 @@ public class GameRunner extends JPanel {
 	
 	public GameRunner(Clock c){
 		super();
+		Background = new Loader().getPicture("images/Background.png");
 		setFocusable(true);
 		gameClock = c;
 		gameClock.reset();
-		addGun(1);
-
 		addListener();
 	}
 	
 	public GameRunner( Clock c, ArrayList<String> load){
 		super();
+		Background = new Loader().getPicture("images/Background.png");
 		loadGame(load);
 		gameClock = c;
 		gameClock.reset();
@@ -143,8 +146,8 @@ public class GameRunner extends JPanel {
 	
 
 	private double getAngle() {
-		double pX = player.x+50;
-		double pY = player.y+15;
+		double pX = player.x+35;
+		double pY = player.y+18;
 		int xD = (int) (mouseX - pX);
 		int yD = (int) (mouseY - pY);
 		return Math.atan2(yD,xD);
@@ -172,8 +175,7 @@ public class GameRunner extends JPanel {
 	}
 	
 	public void paintComponent(Graphics g){
-			g.setColor(Color.GREEN);
-			g.fillRect(0, 0, 400,400);
+			g.drawImage(Background,0,0,null);
 			player.update(gameClock.getFrameTime());
 			player.paintComponent(g);
 			for(int temp = 0; temp < bulletList.size(); temp++){

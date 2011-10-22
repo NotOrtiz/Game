@@ -18,6 +18,7 @@ import Game.PausePanel;
 import Game.SideScrollingZombieShooter.Load;
 import Game.SideScrollingZombieShooter.Player;
 import Game.SideScrollingZombieShooter.GameRunner;
+import ImageLoading.Loader;
 import Menus.MainMenu;
 import Menus.OptionPanel;
 
@@ -30,12 +31,14 @@ public class MainFrame extends JFrame implements KeyEventDispatcher{
 	MainMenu panelMainMenu = new MainMenu();
 	OptionPanel panelOptions = new OptionPanel();
 	LoadPanel panelLoad = new LoadPanel();
-	GameRunner panelGameRunner;
+	Loader imgLoader = new Loader();
 	CharCreation panelCharCreation = new CharCreation();
 	Clock c = new Clock();
+	GameRunner panelGameRunner = new GameRunner(c);
 	boolean playing = false;
 	boolean paused = false;
 	PausePanel panelPause = new PausePanel();
+	ArrayList<String> save = new Load().loadGame();
 	
 	public MainFrame(){
 		super();
@@ -43,7 +46,6 @@ public class MainFrame extends JFrame implements KeyEventDispatcher{
 		add(panelMainMenu);
 	    KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
 	    manager.addKeyEventDispatcher(this);
-		setVisible(true);
 		buttonListeners();
 	}
 	
@@ -80,11 +82,9 @@ public class MainFrame extends JFrame implements KeyEventDispatcher{
 
 				try{
 					panelLoad.setVisible(false);
-					ArrayList<String> save = new Load().loadGame();
 					panelGameRunner = new GameRunner(c,save);	
 					playing = true;
 					add(panelGameRunner);
-					repaint();
 				}catch(Exception e){panelLoad.setVisible(true);}
 
 
@@ -94,6 +94,7 @@ public class MainFrame extends JFrame implements KeyEventDispatcher{
 		panelLoad.buttonNew.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				panelLoad.setVisible(false);
+				panelCharCreation.setVisible(true);
 				add(panelCharCreation);
 				repaint();
 			}
@@ -116,9 +117,10 @@ public class MainFrame extends JFrame implements KeyEventDispatcher{
 				else{
 					panelCharCreation.setVisible(false);
 					Player p = new Player(panelCharCreation.fieldName.getText(),0,325);
-					GameRunner.player = p;
 					panelGameRunner = new GameRunner(c);
+					GameRunner.player = p;
 					playing = true;
+					panelCharCreation.fieldName.setText("");
 					add(panelGameRunner);
 
 				}
@@ -142,7 +144,8 @@ public class MainFrame extends JFrame implements KeyEventDispatcher{
 				remove(panelGameRunner);
 				panelGameRunner.saveGame();
 				playing = false;
-				panelGameRunner = new GameRunner(c);
+				paused = false;
+				//panelGameRunner = new GameRunner(c);
 				add(panelMainMenu);
 				panelMainMenu.setVisible(true);
 			}
@@ -151,12 +154,13 @@ public class MainFrame extends JFrame implements KeyEventDispatcher{
 	}
 
 	private void createAndShowGui() {
+		setVisible(true);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setSize(400,400);
 		try {
-	        UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+	        UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

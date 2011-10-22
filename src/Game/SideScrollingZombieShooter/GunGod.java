@@ -5,14 +5,13 @@ import java.awt.Image;
 import ImageLoading.Loader;
 
 public class GunGod {
-	Loader imageLoader = new Loader();
 	
 	public GunGod(){
-		setPlayerImage("charDefault.png");
+		//setPlayerImage("image/charDefault.png");
 	}
 	
 	public void setPlayerImage(String src){
-		Image i = imageLoader.getPlayerPicture(src);
+		Image i = new Loader().getPicture("images/charDefault.png");
 		GameRunner.player.setImage(i);
 	}
 	

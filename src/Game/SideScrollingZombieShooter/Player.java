@@ -1,6 +1,7 @@
 package Game.SideScrollingZombieShooter;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 
@@ -19,7 +20,7 @@ public class Player
 	public boolean left = false;
 	boolean jumpUp = false;
 	boolean fallDown = false;
-	
+	Font f = new Font("Courier", Font.BOLD,  10);
 	int startY;
 	
 	public Player(String name, float x, float y)
@@ -27,13 +28,14 @@ public class Player
 		this.name = name;
 		this.x = x;
 		this.y = y;
-		playerPic = new Loader().getPlayerPicture();
+		playerPic = new Loader().getPicture("images/charDefault.png");
 	}
 	
 	
 	protected void paintComponent(Graphics g){
 		g.drawImage(playerPic, (int)x, (int)y, null);
-		g.setColor(Color.BLACK);
+		g.setColor(Color.WHITE);
+		g.setFont(f);
 		g.drawString("SSZS 0.00001 Alpha",0,10);
 	}
 	
