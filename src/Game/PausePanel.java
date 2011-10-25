@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -18,7 +19,7 @@ public class PausePanel extends JPanel{
 	private static final long serialVersionUID = 8031413316243649949L;
 	TitledBorder title = BorderFactory.createTitledBorder("PAUSED");
 	GridBagConstraints c = new GridBagConstraints();
-	public JButton buttonBack;
+	public JButton buttonOptions;
 	public JButton buttonSaveAndExit;
 	public PausePanel(){
 		super();
@@ -29,16 +30,17 @@ public class PausePanel extends JPanel{
 
 
 	private void addOptionsThings() {
-		buttonBack = new JButton("Back");
-		buttonBack.setPreferredSize(new Dimension(75,30));
 		c.fill = GridBagConstraints.HORIZONTAL;
+		buttonOptions = new JButton("Options");
+		buttonOptions.setPreferredSize(new Dimension(75,30));
+		c.gridy = 0;
 		c.weightx = 1.5;
 		c.gridx = 1;
-		c.gridy = 0;
-		add(buttonBack,c);
+		add(buttonOptions,c);
+		c.insets = new Insets(12,0,0,0);
 		buttonSaveAndExit = new JButton("Save and Exit");
 		buttonSaveAndExit.setPreferredSize(new Dimension(75,30));
-		c.gridy = 1;
+		c.gridy = 3;
 		add(buttonSaveAndExit,c);
 	}
 

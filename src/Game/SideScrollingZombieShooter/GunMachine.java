@@ -1,6 +1,6 @@
 package Game.SideScrollingZombieShooter;
 
-public class GunMachine{
+public class GunMachine extends GunGod{
 
 
 }

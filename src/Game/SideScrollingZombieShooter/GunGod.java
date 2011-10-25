@@ -1,28 +1,30 @@
 package Game.SideScrollingZombieShooter;
 
-import java.awt.Image;
-
 import ImageLoading.Loader;
+import Game.SideScrollingZombieShooter.GameRunner;
 
 public class GunGod {
 	
 	public GunGod(){
-		//setPlayerImage("image/charDefault.png");
+		setPlayerImage("images/charDefault.png");
 	}
 	
 	public void setPlayerImage(String src){
-		Image i = new Loader().getPicture("images/charDefault.png");
-		GameRunner.player.setImage(i);
+		GameRunner.player.playerPic = new Loader().getPicture(src);
 	}
 	
 	public String toString(){
-		return "I";
+		return "4";
 	}
 	
-	public int paintX = 35;
-	public int paintY = 18;
+	public boolean canShoot(){
+		return true;
+	}
 	
-	public int damagePerShot;
-	public int shotsPerSecond;
+	public int angleX = 35;
+	public int angleY = 18;
+	
+	public int damagePerShot = 3;
+	public int shotsPerSecond = 6000;
 	
 }

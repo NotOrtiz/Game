@@ -25,6 +25,7 @@ public class GameRunner extends JPanel {
 	public static Player player = new Player("ERROR",0,0);
 	Image Background;
 	Clock gameClock;
+	GunGod gun = new GunGod();
 	ArrayList<Bullet> bulletList = new ArrayList<Bullet>();
 	ArrayList<Enemy> e = new ArrayList<Enemy>();
 	boolean jump = false;
@@ -32,6 +33,7 @@ public class GameRunner extends JPanel {
 	boolean right = false;
 	boolean left = false;
 	boolean shooting = false;
+	public static boolean changeweapon = false;
 	
 	int mouseX = 0;
 	int mouseY = 0;
@@ -43,6 +45,7 @@ public class GameRunner extends JPanel {
 		gameClock = c;
 		gameClock.reset();
 		addListener();
+
 	}
 	
 	public GameRunner( Clock c, ArrayList<String> load){
@@ -60,7 +63,7 @@ public class GameRunner extends JPanel {
 		player.x = Float.parseFloat(load.get(1));
 		player.y =  Float.parseFloat(load.get(2));
 		byte e = Byte.parseByte(load.get(3));
-		addGun(e);
+		setGun(e);
 		int x = Integer.parseInt(load.get(4));
 		for(int i = 5; i < x+5;i+=4){
 			bulletList.add(new Bullet((int)Double.parseDouble(load.get(i)),(int)Double.parseDouble(load.get(i+1)),Double.parseDouble(load.get(i+2)),Boolean.parseBoolean(load.get(i+3))));
@@ -139,37 +142,46 @@ public class GameRunner extends JPanel {
 	public void run() {
             gameClock.update();
             this.repaint();
-            if(shooting && canShoot())
-            	bulletList.add(new Bullet((int)player.x+35,(int)player.y+18,getAngle(),false));			
+            if(changeweapon){
+            	changeweapon = false;
+            	setGun(1);
+            }
+            if(shooting && gun.canShoot() && bulletList.size() < gun.shotsPerSecond){
+            	bulletList.add(new Bullet((int)player.x+gun.angleX,(int)player.y+gun.angleY,getAngle(),false));		  
+            	if(gun.toString().equals("1")){
+            		shooting = false;
+            	}
+            }
+	
 
     }
 	
 
 	private double getAngle() {
-		double pX = player.x+35;
-		double pY = player.y+18;
+		double pX = player.x+gun.angleX;
+		double pY = player.y+gun.angleY;
 		int xD = (int) (mouseX - pX);
 		int yD = (int) (mouseY - pY);
 		return Math.atan2(yD,xD);
 	}
-	
-	private boolean canShoot() {
-		return true;
-	}
 
-	public void addGun(int i){
+	public void setGun(int i){
 		switch(i){
 			case 1:
-				new GunGod();
+				gun = new GunNormal();
+				player.gunName = "1";
 				break;
 			case 2:
-				new GunMachine();
+				gun = new GunMachine();
+				player.gunName = "2";
 				break;
 			case 3:
-				new GunRocket();
+				gun = new GunRocket();
+				player.gunName = "3";
 				break;
 			default:
-				new GunGod();
+				gun = new GunGod();
+				player.gunName = "4";
 				break;
 		}
 	}

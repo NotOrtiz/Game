@@ -13,7 +13,7 @@ public class Player
 	Image playerPic;
 	float x;
 	float y;
-	String gunName = "1";
+	String gunName;
 	public boolean jump = false;
 	public boolean crouch = false;
 	public boolean right = false;

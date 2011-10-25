@@ -18,7 +18,7 @@ import Game.PausePanel;
 import Game.SideScrollingZombieShooter.Load;
 import Game.SideScrollingZombieShooter.Player;
 import Game.SideScrollingZombieShooter.GameRunner;
-import ImageLoading.Loader;
+
 import Menus.MainMenu;
 import Menus.OptionPanel;
 
@@ -31,14 +31,13 @@ public class MainFrame extends JFrame implements KeyEventDispatcher{
 	MainMenu panelMainMenu = new MainMenu();
 	OptionPanel panelOptions = new OptionPanel();
 	LoadPanel panelLoad = new LoadPanel();
-	Loader imgLoader = new Loader();
 	CharCreation panelCharCreation = new CharCreation();
 	Clock c = new Clock();
 	GameRunner panelGameRunner = new GameRunner(c);
+
 	boolean playing = false;
 	boolean paused = false;
 	PausePanel panelPause = new PausePanel();
-	ArrayList<String> save = new Load().loadGame();
 	
 	public MainFrame(){
 		super();
@@ -82,6 +81,7 @@ public class MainFrame extends JFrame implements KeyEventDispatcher{
 
 				try{
 					panelLoad.setVisible(false);
+					ArrayList<String> save = new Load().loadGame();
 					panelGameRunner = new GameRunner(c,save);	
 					playing = true;
 					add(panelGameRunner);
@@ -115,29 +115,22 @@ public class MainFrame extends JFrame implements KeyEventDispatcher{
 					
 				}
 				else{
+					double startTime = c.getElapsedTime();
 					panelCharCreation.setVisible(false);
 					Player p = new Player(panelCharCreation.fieldName.getText(),0,325);
 					panelGameRunner = new GameRunner(c);
 					GameRunner.player = p;
 					playing = true;
 					panelCharCreation.fieldName.setText("");
+					c.update();
+					System.out.println(c.getElapsedTime()-startTime);
 					add(panelGameRunner);
 
 				}
 
 			}
 			
-		});
-		panelPause.buttonBack.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent arg0) {
-					panelGameRunner.run();
-            		paused = false;
-            		remove(panelPause);
-            		panelGameRunner.setVisible(true);
-
-			}
-			
-		});		
+		});	
 		panelPause.buttonSaveAndExit.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				remove(panelPause);
@@ -145,7 +138,7 @@ public class MainFrame extends JFrame implements KeyEventDispatcher{
 				panelGameRunner.saveGame();
 				playing = false;
 				paused = false;
-				//panelGameRunner = new GameRunner(c);
+				panelGameRunner = new GameRunner(c);
 				add(panelMainMenu);
 				panelMainMenu.setVisible(true);
 			}
@@ -192,6 +185,9 @@ public class MainFrame extends JFrame implements KeyEventDispatcher{
 	        			case KeyEvent.VK_W:
 	        				GameRunner.player.jump = true;
 	        				break;	
+	        			case KeyEvent.VK_B:
+	        				GameRunner.changeweapon = true;
+	        				break;
             		}
             	}
             }
