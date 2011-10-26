@@ -48,7 +48,7 @@ class Save
 	  		}
 	  		sb.append(newLine);
 	  		toEncrypt = sb.toString();
-	  		byte[] toWrite = encrypt(toEncrypt,"LOL");
+	  		byte[] toWrite = encrypt(toEncrypt,System.getProperty("user.home")+System.getProperty("os.name"));
 	  		String writeThis = Arrays.toString(toWrite);
 	  		out.write(writeThis.substring(1, writeThis.length()-1));
 	  		out.close();

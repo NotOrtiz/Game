@@ -32,7 +32,7 @@ public class Load
 			for(int x = 0; x < temp.length; x++){
 				toDecrypt[x] = Byte.parseByte(temp[x]);
 			}
-			String decrypted = decrypt(toDecrypt,"LOL");
+			String decrypted = decrypt(toDecrypt,System.getProperty("user.home")+System.getProperty("os.name"));
 			String[] toAdd = decrypted.split(":");
 			for(String s:toAdd){
 				returnArray.add(s);
