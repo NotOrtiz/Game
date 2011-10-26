@@ -26,8 +26,15 @@ public class Load
 			DataInputStream in = new DataInputStream(fstream);
 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
 			String strLine = br.readLine();
-			String[] temp = strLine.split(":");
-			for(String s:temp){
+			String[] temp = strLine.split(", ");
+			byte[] toDecrypt = new byte[temp.length];
+			
+			for(int x = 0; x < temp.length; x++){
+				toDecrypt[x] = Byte.parseByte(temp[x]);
+			}
+			String decrypted = decrypt(toDecrypt,"LOL");
+			String[] toAdd = decrypted.split(":");
+			for(String s:toAdd){
 				returnArray.add(s);
 			}
 			in.close();
@@ -35,5 +42,26 @@ public class Load
 		catch(Exception err){}
 		
 		return returnArray;
+	}
+	
+	public static String decrypt(byte[] input, String key){		
+		byte[] byteKeyArray = new byte[input.length];
+		byte[] keyTemp = key.getBytes();
+		for(int x = 0, y = 0; x < input.length;x++,y++){
+				byteKeyArray[x] = keyTemp[y];			
+				if(y == keyTemp.length-1){
+					y=-1;					
+				}
+		}
+		char[] decrypted = new char[input.length];
+		
+		for(int i = 0; i < input.length; i++){
+			decrypted[i] = (char) (input[i] ^ byteKeyArray[i]);
+		}
+		String returnThis = "";
+		for(char c: decrypted){
+			returnThis +=c;
+		}
+		return returnThis;
 	}
 }
