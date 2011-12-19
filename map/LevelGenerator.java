@@ -30,8 +30,8 @@ public class LevelGenerator {
 	}
 	
 	public static void main(String[] args){
-		int xSize = 124;
-		int ySize = 124;
+		int xSize = 128;
+		int ySize = 128;
 		while(true){
 			byte[] map = LevelGenerator.createMap(xSize,ySize);
 			BufferedImage img = new BufferedImage(xSize,ySize,BufferedImage.TYPE_INT_RGB);
@@ -49,7 +49,7 @@ public class LevelGenerator {
 				}
 			}
 			img.setRGB(0, 0, xSize, ySize, pixels, 0, xSize);
-			JOptionPane.showMessageDialog(null, null, "Another", JOptionPane.YES_NO_OPTION, new ImageIcon(img.getScaledInstance(xSize * 4, ySize * 4, Image.SCALE_AREA_AVERAGING)));			
+			JOptionPane.showMessageDialog(null, null, "Another", JOptionPane.YES_NO_OPTION, new ImageIcon(img.getScaledInstance(xSize*2, ySize*2, Image.SCALE_AREA_AVERAGING)));			
 		}
 		
 		

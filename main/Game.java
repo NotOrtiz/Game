@@ -5,8 +5,12 @@ import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+
+import map.Map;
 
 import entity.Player;
 
@@ -19,11 +23,14 @@ public class Game extends Canvas implements Runnable{
 	
 	private InputHandler input = new InputHandler(this);
 	public Player player = new Player("Andrew", input);
+	public Map level = new Map(128,128);
+	
+	public final ImageIcon Background;
 	
 	boolean running = false;
 	
 	public Game(){
-		
+		Background = level.getMapImage();
 	}
 	
 	public void run() {
@@ -87,7 +94,7 @@ public class Game extends Canvas implements Runnable{
 		}
 
 		Graphics g = bs.getDrawGraphics();
-		g.fillRect(0, 0, getWidth(), getHeight());
+		g.drawImage(Background.getImage(), 0, 0, null);
 		player.render(g);
 		g.dispose();
 		bs.show();
