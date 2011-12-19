@@ -1,1 +1,0 @@
-A game with a main menu for the time being.
