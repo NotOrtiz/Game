@@ -5,8 +5,6 @@ import java.awt.Graphics;
 
 import main.InputHandler;
 
-import gfx.Screen;
-
 public class Player extends Entity{
 	private InputHandler input;
 	private final String name;

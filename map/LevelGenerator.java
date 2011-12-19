@@ -18,7 +18,7 @@ public class LevelGenerator {
 	}
 	
 
-	private static byte[] createMap(int xSize, int ySize) {
+	public static byte[] createMap(int xSize, int ySize) {
 		byte[] map = new byte[xSize*ySize];
 		for(int x = 0; x < xSize; x++){
 			for(int y = 0; y < ySize; y++){
@@ -30,8 +30,8 @@ public class LevelGenerator {
 	}
 	
 	public static void main(String[] args){
-		int xSize = 40;
-		int ySize = 40;
+		int xSize = 124;
+		int ySize = 124;
 		while(true){
 			byte[] map = LevelGenerator.createMap(xSize,ySize);
 			BufferedImage img = new BufferedImage(xSize,ySize,BufferedImage.TYPE_INT_RGB);
