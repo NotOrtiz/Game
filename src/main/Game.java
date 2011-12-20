@@ -4,44 +4,64 @@ import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import map.Map;
 
+import entity.Entity;
 import entity.Player;
 
-public class Game extends Canvas implements Runnable{
+public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = -2476914045089723281L;
-	private static final int SCALE = 3;
+	private static final int SCALE = 4;
 	private static final String NAME = "Game";
-	public static final int HEIGHT = 120;
-	public static final int WIDTH = 160;
-	
+	public static final int HEIGHT = 127;
+	public static final int WIDTH = 159;
+	public static Map level = new Map(128, 128);
+
 	private InputHandler input = new InputHandler(this);
-	public Player player = new Player("Andrew", input);
-	public Map level = new Map(128,128);
+	public Player player = new Player((int) (0.5 + (WIDTH * SCALE) / 2),
+			(int) (0.5 + (HEIGHT * SCALE) / 2), input);
+	BufferedImage img;
+
+	Random rand = new Random();
+
+	ArrayList<Entity> entities = new ArrayList<Entity>();
+
+	public static ImageIcon MiniMap;
+	public static ImageIcon Map;
 	
-	public final ImageIcon Background;
-	
+	public static Image miniMap;
+	public static Image map;
+
 	boolean running = false;
-	
-	public Game(){
-		Background = level.getMapImage();
+
+	static {
+		MiniMap = level.getMiniMapImage();
+		Map = level.getFullMap();
+		miniMap = MiniMap.getImage();
+		map = Map.getImage();
 	}
-	
+
+	public Game() {
+
+	}
+
 	public void run() {
+		init();
 		long lastTime = System.nanoTime();
 		double unprocessed = 0;
 		double nanosecondsPerTick = 1000000000.0 / 60;
 		int frames = 0;
 		int ticks = 0;
 		long lastTimer1 = System.currentTimeMillis();
-
-		init();
 
 		while (running) {
 			long now = System.nanoTime();
@@ -52,14 +72,15 @@ public class Game extends Canvas implements Runnable{
 				ticks++;
 				tick();
 				unprocessed -= 1;
-				if(frames < 60) shouldRender = true;
+				shouldRender = true;
 			}
+
 			if (shouldRender) {
 				frames++;
 				render();
 			}
-				
-			if (System.currentTimeMillis() - lastTimer1 >= 1000) {
+
+			if (System.currentTimeMillis() - lastTimer1 > 1000) {
 				lastTimer1 += 1000;
 				System.out.println(ticks + " ticks, " + frames + " fps");
 				frames = 0;
@@ -67,13 +88,12 @@ public class Game extends Canvas implements Runnable{
 			}
 		}
 	}
-	
+
 	private void tick() {
 		player.tick();
 	}
 
 	private void init() {
-		
 	}
 
 	public void start() {
@@ -84,7 +104,7 @@ public class Game extends Canvas implements Runnable{
 	public void stop() {
 		running = false;
 	}
-	
+
 	public void render() {
 		BufferStrategy bs = getBufferStrategy();
 		if (bs == null) {
@@ -94,17 +114,33 @@ public class Game extends Canvas implements Runnable{
 		}
 
 		Graphics g = bs.getDrawGraphics();
-		g.drawImage(Background.getImage(), 0, 0, null);
+		/*
+		 * Black Magic starts here
+		 */
+		g.drawImage(map, 0, 0, WIDTH * SCALE + 32, HEIGHT * SCALE
+				+ 32, (player.x - (5 * 32)), (player.y - (5 * 32)),
+				(player.x + (5 * 32)), (player.y + (5 * 32)), null);
+		/*
+		 * I should not of changed this. It is now messed up. So it is. Now commented out.
+		 */
+		// g.drawImage(miniMap, 0, 0,
+		// player.x + 32 * 5, player.y + 32 * 5, (player.x - (5 * 32)),
+		// (player.y - (5 * 32)), (player.x + (5 * 32)),
+		// (player.y + (5 * 32)), null);
+		/*
+		 * Ends Here
+		 */
 		player.render(g);
 		g.dispose();
 		bs.show();
 	}
-	public static void main(String[] args){
+
+	public static void main(String[] args) {
 		Game game = new Game();
 		game.setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		game.setMaximumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		game.setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
-		
+
 		JFrame frame = new JFrame(Game.NAME);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
@@ -113,7 +149,7 @@ public class Game extends Canvas implements Runnable{
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-		
+
 		game.start();
 	}
 
