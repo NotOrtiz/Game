@@ -24,7 +24,7 @@ public class Game extends Canvas implements Runnable {
 	private static final String NAME = "Game";
 	public static final int HEIGHT = 127;
 	public static final int WIDTH = 159;
-	public static Map level = new Map(128, 128);
+	public static Map level = new Map(256, 256);
 
 	private InputHandler input = new InputHandler(this);
 	public Player player = new Player((int) (0.5 + (WIDTH * SCALE) / 2),
@@ -42,13 +42,6 @@ public class Game extends Canvas implements Runnable {
 	public static Image map;
 
 	boolean running = false;
-
-	static {
-		MiniMap = level.getMiniMapImage();
-		Map = level.getFullMap();
-		miniMap = MiniMap.getImage();
-		map = Map.getImage();
-	}
 
 	public Game() {
 
@@ -117,19 +110,16 @@ public class Game extends Canvas implements Runnable {
 		/*
 		 * Black Magic starts here
 		 */
-		g.drawImage(map, 0, 0, WIDTH * SCALE + 32, HEIGHT * SCALE
-				+ 32, (player.x - (5 * 32)), (player.y - (5 * 32)),
-				(player.x + (5 * 32)), (player.y + (5 * 32)), null);
+//		g.drawImage(map, 0, 0, WIDTH * SCALE + 32, HEIGHT * SCALE
+//				+ 32, (player.x - (5 * 32)), (player.y - (5 * 32)),
+//				(player.x + (5 * 32)), (player.y + (5 * 32)), null);
 		/*
 		 * I should not of changed this. It is now messed up. So it is. Now commented out.
 		 */
-		// g.drawImage(miniMap, 0, 0,
-		// player.x + 32 * 5, player.y + 32 * 5, (player.x - (5 * 32)),
-		// (player.y - (5 * 32)), (player.x + (5 * 32)),
-		// (player.y + (5 * 32)), null);
 		/*
 		 * Ends Here
 		 */
+		level.render(g, player.x/32, player.y/32);
 		player.render(g);
 		g.dispose();
 		bs.show();
