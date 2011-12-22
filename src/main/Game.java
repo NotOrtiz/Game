@@ -37,7 +37,7 @@ public class Game extends Canvas implements Runnable {
 
 	public static ImageIcon MiniMap;
 	public static ImageIcon Map;
-	
+
 	public static Image miniMap;
 	public static Image map;
 
@@ -107,19 +107,7 @@ public class Game extends Canvas implements Runnable {
 		}
 
 		Graphics g = bs.getDrawGraphics();
-		/*
-		 * Black Magic starts here
-		 */
-//		g.drawImage(map, 0, 0, WIDTH * SCALE + 32, HEIGHT * SCALE
-//				+ 32, (player.x - (5 * 32)), (player.y - (5 * 32)),
-//				(player.x + (5 * 32)), (player.y + (5 * 32)), null);
-		/*
-		 * I should not of changed this. It is now messed up. So it is. Now commented out.
-		 */
-		/*
-		 * Ends Here
-		 */
-		level.render(g, player.x/32, player.y/32);
+		level.render(g, player.x / 32, player.y / 32);
 		player.render(g);
 		g.dispose();
 		bs.show();

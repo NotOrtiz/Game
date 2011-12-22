@@ -12,35 +12,65 @@ public class LevelGenerator {
 
 	public static byte[][] createMap(int xSize, int ySize) {
 		byte[][] map = new byte[xSize][ySize];
-		int edgeRand = r.nextInt(2)+1;
-		for(int x = 0; x < xSize; x++){
-			for(int y = 0; y < ySize; y++){
-				int i = x + y * xSize;
-				edgeRand = r.nextInt(4)+1;
-				if(x < 6||x > xSize-6||y<5||y>ySize-6) map[x][y] = -1;//edge
-				else if(x < 15+edgeRand||x > xSize-15+edgeRand||y<15+edgeRand||y>ySize-15+edgeRand) map[x][y] = 9;//water
-				else if(x < 21+edgeRand||x > xSize-21+edgeRand||y<21+edgeRand||y>ySize-21+edgeRand) map[x][y] = 8;//sand
-				else if(x < 32+edgeRand||x > xSize-32+edgeRand||y<32+edgeRand||y>ySize-32+edgeRand) map[x][y] = 7;//dirt
-				else if(x < 47+edgeRand||x > xSize-47+edgeRand||y<47+edgeRand||y>ySize-47+edgeRand) map[x][y] = (byte) (7-r.nextInt(2));//dirt/grass
-				else if(x < 97+edgeRand||x > xSize-97+edgeRand||y<97+edgeRand||y>ySize-97+edgeRand){
-					if(r.nextInt(25)==0&& x > 75 && x < xSize-75&&y > 74&&y <ySize-74)
-						map[x][y] = 4;//iron
-					else if(r.nextInt(35)==0&& x > 86 && x < xSize-86&&y > 86&&y <ySize-86)
-						map[x][y] = 3;//diamond
+		int edgeRand = r.nextInt(2) + 1;
+		for (int x = 0; x < xSize; x++) {
+			for (int y = 0; y < ySize; y++) {
+				edgeRand = r.nextInt(4) + 1;
+				if (x < xSize - (xSize - 16) || x > xSize - 17
+						|| y < ySize - (ySize - 9) || y > ySize - 10)
+					map[x][y] = -1;
+				else if (x < (xSize / 15) + edgeRand
+						|| x > xSize - (xSize / 15) + edgeRand
+						|| y < (ySize / 15) + edgeRand
+						|| y > ySize - (ySize / 15) + edgeRand)
+					map[x][y] = 9;
+				else if (x < (xSize / 11) + edgeRand
+						|| x > xSize - (xSize / 11) + edgeRand
+						|| y < (ySize / 11) + edgeRand
+						|| y > ySize - (ySize / 11) + edgeRand)
+					map[x][y] = 8;
+				else if (x < (xSize / 9) + edgeRand
+						|| x > xSize - (xSize / 9) + edgeRand
+						|| y < (ySize / 9) + edgeRand
+						|| y > ySize - (ySize / 9) + edgeRand)
+					map[x][y] = 7;
+				else if (x < (xSize / 7) + edgeRand
+						|| x > xSize - (xSize / 7) + edgeRand
+						|| y < (ySize / 7) + edgeRand
+						|| y > ySize - (ySize / 7) + edgeRand)
+					map[x][y] = (byte) (7 - r.nextInt(2));
+				else if (x < (xSize / 6) + edgeRand
+						|| x > xSize - (xSize / 6) + edgeRand
+						|| y < (ySize / 6) + edgeRand
+						|| y > ySize - (ySize / 6) + edgeRand)
+					map[x][y] = (byte) (6);
+
+				else if (x < (xSize / 3) + edgeRand
+						|| x > xSize - (xSize / 3) + edgeRand
+						|| y < (ySize / 3) + edgeRand
+						|| y > ySize - (ySize / 3) + edgeRand) {
+					if (r.nextInt(25) == 0 && x > xSize / 4
+							&& x < xSize - (xSize / 4) && y > ySize / 4
+							&& y < ySize - (ySize / 4))
+						map[x][y] = 4;
+					else if (r.nextInt(25) == 0 && x > xSize / 4
+							&& x < xSize - (xSize / 4) && y > ySize / 4
+							&& y < ySize - (ySize / 4))
+						map[x][y] = 3;
 					else
-						map[x][y] = (byte) 5;//rock
-				}
-				else map[x][y] = (byte)(r.nextInt(2)+1);
+						map[x][y] = (byte) 5;
+				} else
+					map[x][y] = (byte) (r.nextInt(2) + 1);
 			}
 		}
 		return map;
 	}
-	
-	public static void main(String[] args){
-		int xSize = 256;
-		int ySize = 256;
-		while(true){
-			byte[][] map = LevelGenerator.createMap(xSize,ySize);
+
+	public static void main(String[] args) {
+		int xSize = 512;
+		int ySize = 512;
+		while (true) {
+			byte[][] map = LevelGenerator.createMap(xSize, ySize);
 			BufferedImage img = new BufferedImage(xSize, ySize,
 					BufferedImage.TYPE_INT_RGB);
 			int[] pixels = new int[xSize * ySize];
@@ -48,31 +78,36 @@ public class LevelGenerator {
 				for (int x = 0; x < xSize; x++) {
 					int i = x + y * xSize;
 					if (map[x][y] == 1)
-						pixels[i] = 0xff2020;//red
+						pixels[i] = 0xff2020;// red
 					else if (map[x][y] == 2)
-						pixels[i] = 0x33FF00;//light green
+						pixels[i] = 0x33FF00;// light green
 					else if (map[x][y] == 3)
-						pixels[i] = 0x00CCFF;//light blue
+						pixels[i] = 0x00CCFF;// light blue
 					else if (map[x][y] == 4)
-						pixels[i] = 0xFF7722;//Orange
+						pixels[i] = 0xFF7722;// Orange
 					else if (map[x][y] == 5)
-						pixels[i] = 0xa0a0a0;//Grey
+						pixels[i] = 0xa0a0a0;// Grey
 					else if (map[x][y] == 6)
-						pixels[i] = 0x24B200;//Green
+						pixels[i] = 0x24B200;// Green
 					else if (map[x][y] == 7)
-						pixels[i] = 0x3F3104;//BROWN
+						pixels[i] = 0x3F3104;// BROWN
 					else if (map[x][y] == 8)
-						pixels[i] = 0xFFE500;//GOld
+						pixels[i] = 0xFFE500;// GOld
 					else if (map[x][y] == 9)
-						pixels[i] = 0x0000FF;//Blue
+						pixels[i] = 0x0000FF;// Blue
 					else
-						pixels[i] = 0x000000;//black
+						pixels[i] = 0x000000;// black
 				}
 			}
 			img.setRGB(0, 0, xSize, ySize, pixels, 0, xSize);
-			JOptionPane.showMessageDialog(null, null, "Another", JOptionPane.YES_NO_OPTION, new ImageIcon(img.getScaledInstance(xSize, ySize, Image.SCALE_AREA_AVERAGING)));			
+			JOptionPane.showMessageDialog(
+					null,
+					null,
+					"Another",
+					JOptionPane.YES_NO_OPTION,
+					new ImageIcon(img.getScaledInstance(xSize, ySize,
+							Image.SCALE_AREA_AVERAGING)));
 		}
-		
-		
+
 	}
 }
