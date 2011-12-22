@@ -20,11 +20,11 @@ import entity.Player;
 
 public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = -2476914045089723281L;
-	private static final int SCALE = 4;
+	private static final int SCALE = 1;
 	private static final String NAME = "Game";
-	public static final int HEIGHT = 127;
-	public static final int WIDTH = 159;
-	public static Map level = new Map(256, 256);
+	public static final int HEIGHT = 662;
+	public static final int WIDTH = 662;
+	public static Map level = new Map(512,512);
 
 	private InputHandler input = new InputHandler(this);
 	public Player player = new Player((int) (0.5 + (WIDTH * SCALE) / 2),
@@ -32,6 +32,7 @@ public class Game extends Canvas implements Runnable {
 	BufferedImage img;
 
 	Random rand = new Random();
+	int ticks;
 
 	ArrayList<Entity> entities = new ArrayList<Entity>();
 
@@ -53,7 +54,7 @@ public class Game extends Canvas implements Runnable {
 		double unprocessed = 0;
 		double nanosecondsPerTick = 1000000000.0 / 60;
 		int frames = 0;
-		int ticks = 0;
+		ticks = 0;
 		long lastTimer1 = System.currentTimeMillis();
 
 		while (running) {
@@ -83,7 +84,7 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	private void tick() {
-		player.tick();
+		player.tick(ticks);
 	}
 
 	private void init() {
@@ -115,9 +116,9 @@ public class Game extends Canvas implements Runnable {
 
 	public static void main(String[] args) {
 		Game game = new Game();
-		game.setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
-		game.setMaximumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
-		game.setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
+		game.setMinimumSize(new Dimension(WIDTH, HEIGHT));
+		game.setMaximumSize(new Dimension(WIDTH, HEIGHT));
+		game.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
 		JFrame frame = new JFrame(Game.NAME);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -39,8 +39,8 @@ public class InputHandler implements KeyListener {
 	public Key down = new Key();
 	public Key left = new Key();
 	public Key right = new Key();
-	public Key attack = new Key();
-	public Key menu = new Key();
+	public Key mine = new Key();
+	public Key place = new Key();
 
 	public void releaseAll() {
 		for (int i = 0; i < keys.size(); i++) {
@@ -91,28 +91,10 @@ public class InputHandler implements KeyListener {
 			left.toggle(pressed);
 		if (ke.getKeyCode() == KeyEvent.VK_RIGHT)
 			right.toggle(pressed);
-
-		if (ke.getKeyCode() == KeyEvent.VK_TAB)
-			menu.toggle(pressed);
-		if (ke.getKeyCode() == KeyEvent.VK_ALT)
-			menu.toggle(pressed);
-		if (ke.getKeyCode() == KeyEvent.VK_ALT_GRAPH)
-			menu.toggle(pressed);
-		if (ke.getKeyCode() == KeyEvent.VK_SPACE)
-			attack.toggle(pressed);
-		if (ke.getKeyCode() == KeyEvent.VK_CONTROL)
-			attack.toggle(pressed);
-		if (ke.getKeyCode() == KeyEvent.VK_NUMPAD0)
-			attack.toggle(pressed);
-		if (ke.getKeyCode() == KeyEvent.VK_INSERT)
-			attack.toggle(pressed);
-		if (ke.getKeyCode() == KeyEvent.VK_ENTER)
-			menu.toggle(pressed);
-
 		if (ke.getKeyCode() == KeyEvent.VK_X)
-			menu.toggle(pressed);
+			place.toggle(pressed);
 		if (ke.getKeyCode() == KeyEvent.VK_C)
-			attack.toggle(pressed);
+			mine.toggle(pressed);
 	}
 
 	public void keyTyped(KeyEvent ke) {

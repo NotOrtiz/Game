@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Map {
-	public byte[][] map;
+	public static byte[][] map;
 
 	public Map(int xSize, int ySize) {
 		map = LevelGenerator.createMap(xSize, ySize);
@@ -15,15 +15,15 @@ public class Map {
 	}
 
 	public void render(Graphics g, int x, int y) {
-		int yEnd = (y + 9);
-		int xEnd = (x + 16);
-		int yStart = (y - 9);
-		int xStart = (x - 16);
+		int yEnd = (y + 10);
+		int xEnd = (x + 10);
+		int yStart = (y - 10);
+		int xStart = (x - 10);
 		int yP = 0;
 		int xP = 0;
-		for (; yStart < yEnd; yStart++, yP += 32) {
-			for (xStart = (x - 16); xStart < xEnd; xStart++, xP += 32) {
-				if (xStart >= 0 && xStart < 256 && yStart >= 0 && yStart < 256) {
+		for (; yStart <= yEnd; yStart++, yP += 32) {
+			for (xStart = (x - 10); xStart <= xEnd; xStart++, xP += 32) {
+				if (xStart >= 0 && xStart < 512 && yStart >= 0 && yStart < 512) {
 					if (map[xStart][yStart] == 1) {
 						g.setColor(Color.RED);
 						g.fillRect(xP, yP, 32, 32);
@@ -55,8 +55,6 @@ public class Map {
 						g.setColor(Color.BLACK);
 						g.fillRect(xP, yP, 32, 32);
 					}
-					g.setColor(Color.WHITE);
-					g.drawRect(xP, yP, 32, 32);
 				}
 			}
 			xP = 0;

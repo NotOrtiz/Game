@@ -7,12 +7,14 @@ import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
+import tile.Tile;
+
 public class LevelGenerator {
 	private static Random r = new Random();
 
 	public static byte[][] createMap(int xSize, int ySize) {
 		byte[][] map = new byte[xSize][ySize];
-		int edgeRand = r.nextInt(2) + 1;
+		int edgeRand = r.nextInt(100) + 1;
 		for (int x = 0; x < xSize; x++) {
 			for (int y = 0; y < ySize; y++) {
 				edgeRand = r.nextInt(4) + 1;
@@ -23,27 +25,27 @@ public class LevelGenerator {
 						|| x > xSize - (xSize / 15) + edgeRand
 						|| y < (ySize / 15) + edgeRand
 						|| y > ySize - (ySize / 15) + edgeRand)
-					map[x][y] = 9;
+					map[x][y] = Tile.water.id;
 				else if (x < (xSize / 11) + edgeRand
 						|| x > xSize - (xSize / 11) + edgeRand
 						|| y < (ySize / 11) + edgeRand
 						|| y > ySize - (ySize / 11) + edgeRand)
-					map[x][y] = 8;
+					map[x][y] = Tile.sand.id;
 				else if (x < (xSize / 9) + edgeRand
 						|| x > xSize - (xSize / 9) + edgeRand
 						|| y < (ySize / 9) + edgeRand
 						|| y > ySize - (ySize / 9) + edgeRand)
-					map[x][y] = 7;
+					map[x][y] = Tile.dirt.id;
 				else if (x < (xSize / 7) + edgeRand
 						|| x > xSize - (xSize / 7) + edgeRand
 						|| y < (ySize / 7) + edgeRand
 						|| y > ySize - (ySize / 7) + edgeRand)
-					map[x][y] = (byte) (7 - r.nextInt(2));
+					map[x][y] = (byte) (Tile.dirt.id - r.nextInt(2));
 				else if (x < (xSize / 6) + edgeRand
 						|| x > xSize - (xSize / 6) + edgeRand
 						|| y < (ySize / 6) + edgeRand
 						|| y > ySize - (ySize / 6) + edgeRand)
-					map[x][y] = (byte) (6);
+					map[x][y] = Tile.grass.id;
 
 				else if (x < (xSize / 3) + edgeRand
 						|| x > xSize - (xSize / 3) + edgeRand
@@ -52,13 +54,13 @@ public class LevelGenerator {
 					if (r.nextInt(25) == 0 && x > xSize / 4
 							&& x < xSize - (xSize / 4) && y > ySize / 4
 							&& y < ySize - (ySize / 4))
-						map[x][y] = 4;
+						map[x][y] = Tile.iron.id;
 					else if (r.nextInt(25) == 0 && x > xSize / 4
 							&& x < xSize - (xSize / 4) && y > ySize / 4
 							&& y < ySize - (ySize / 4))
-						map[x][y] = 3;
+						map[x][y] = Tile.diamond.id;
 					else
-						map[x][y] = (byte) 5;
+						map[x][y] = Tile.rock.id;
 				} else
 					map[x][y] = (byte) (r.nextInt(2) + 1);
 			}
