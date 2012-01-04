@@ -3,6 +3,8 @@ package map;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import tile.Tile;
+
 public class Map {
 	public static byte[][] map;
 
@@ -24,41 +26,15 @@ public class Map {
 		for (; yStart <= yEnd; yStart++, yP += 32) {
 			for (xStart = (x - 10); xStart <= xEnd; xStart++, xP += 32) {
 				if (xStart >= 0 && xStart < 512 && yStart >= 0 && yStart < 512) {
-					if (map[xStart][yStart] == 1) {
-						g.setColor(Color.RED);
-						g.fillRect(xP, yP, 32, 32);
-					} else if (map[xStart][yStart] == 2) {
-						g.setColor(Color.decode("0x33FF00"));// light Green
-						g.fillRect(xP, yP, 32, 32);
-					} else if (map[xStart][yStart] == 3) {
-						g.setColor(Color.decode("0x00CCFF"));// light blue
-						g.fillRect(xP, yP, 32, 32);
-					} else if (map[xStart][yStart] == 4) {
-						g.setColor(Color.ORANGE);
-						g.fillRect(xP, yP, 32, 32);
-					} else if (map[xStart][yStart] == 5) {
-						g.setColor(Color.GRAY);
-						g.fillRect(xP, yP, 32, 32);
-					} else if (map[xStart][yStart] == 6) {
-						g.setColor(Color.GREEN);
-						g.fillRect(xP, yP, 32, 32);
-					} else if (map[xStart][yStart] == 7) {
-						g.setColor(Color.decode("0x3F3104"));// brown
-						g.fillRect(xP, yP, 32, 32);
-					} else if (map[xStart][yStart] == 8) {
-						g.setColor(Color.decode("0xFFE500"));// gold/sand color
-						g.fillRect(xP, yP, 32, 32);
-					} else if (map[xStart][yStart] == 9) {
-						g.setColor(Color.BLUE);
-						g.fillRect(xP, yP, 32, 32);
-					} else {
-						g.setColor(Color.BLACK);
-						g.fillRect(xP, yP, 32, 32);
-					}
+					Map.getTile(xStart,yStart).render(g,xP,yP);
 				}
 			}
 			xP = 0;
 		}
+	}
+
+	private static Tile getTile(int xStart, int yStart) {
+		return Tile.tiles[map[xStart][yStart]];
 	}
 
 }

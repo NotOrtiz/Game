@@ -7,9 +7,12 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
@@ -17,6 +20,7 @@ import map.Map;
 
 import entity.Entity;
 import entity.Player;
+import gfx.SpriteSheet;
 
 public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = -2476914045089723281L;
@@ -24,7 +28,20 @@ public class Game extends Canvas implements Runnable {
 	private static final String NAME = "Game";
 	public static final int HEIGHT = 662;
 	public static final int WIDTH = 662;
+	public static SpriteSheet sheet;
+	static{
+		 try {
+			 sheet = new SpriteSheet(ImageIO.read((new File("Images/spritesheet.png"))));
+			
+		} catch (IOException e) {
+			try {
+				sheet = new SpriteSheet(ImageIO.read(Game.class.getResourceAsStream("Images/spritesheet.png")));
+			} catch (IOException e1) {
+			}
+		}
+	}	
 	public static Map level = new Map(512,512);
+
 
 	private InputHandler input = new InputHandler(this);
 	public Player player = new Player((int) (0.5 + (WIDTH * SCALE) / 2),

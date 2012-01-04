@@ -1,5 +1,6 @@
 package tile;
 
+import java.awt.Graphics;
 import java.util.Random;
 import entity.Entity;
 import entity.Player;
@@ -23,7 +24,7 @@ public class Tile {
 		if (tiles[id] != null) throw new RuntimeException("Duplicate tile ids!");
 		tiles[id] = this;
 	}
-	public void render(int x, int y) {
+	public void render(Graphics g, int x, int y) {
 	}
 
 	public boolean mayPass(int x, int y, Entity e) {
